@@ -1,8 +1,5 @@
 <?php
 
-
-//var_dump(__DIR__);
-
 require "../vendor/autoload.php";
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
@@ -63,8 +60,8 @@ if($response->getStatusCode() == 200){
         }
         StorageNews::addNews(new SafetyNews($news['id'], $news['title'], $news['date'], $text));
     }
-    $reflection = new ReflectionClass(StorageNews::class);
-    print_r($reflection->getStaticProperties());
+    $templates = new League\Plates\Engine('../views');
+    echo $templates->render('news', ['news' => StorageNews::getNews()]);
 }else{
     echo 'Некорректный ответ. Код статуса: '.$response->getStatusCode();
 }

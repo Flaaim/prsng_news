@@ -1,7 +1,8 @@
 {
     "require": {
         "guzzlehttp/guzzle": "^7.5",
-        "imangazaliev/didom": "^2.0"
+        "imangazaliev/didom": "^2.0",
+        "league/plates": "^3.5"
     },
     "autoload": {
         "psr-4": {

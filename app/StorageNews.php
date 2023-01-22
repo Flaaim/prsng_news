@@ -11,6 +11,11 @@ class StorageNews
     {
         self::$news[] = $news;
     }
+
+    static function getNews()
+    {
+        return self::$news;
+    }
     
 
 
