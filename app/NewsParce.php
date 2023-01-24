@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 use App\Abstract\Parce;
@@ -18,7 +17,7 @@ class NewsParce extends Parce
         'Kodeks' => '1674004423',
         'Auth' => 'UlJDMTI3VTE6U3lKTXhqNw==',
         'lastVDir' => '%2Fdocs',
-        'KodeksData'=> 'XzE2Nzc3MzQzXzE3OTMyMDU=',
+        'KodeksData' => 'XzE2Nzc3MzQzXzE3OTMyMDU=',
         'state' => 'state',
     ];
     const HEADERS = [
@@ -30,27 +29,27 @@ class NewsParce extends Parce
         'Upgrade-Insecure-Requests' => 1,
         'X-Requested-With' => 'XMLHttpRequest',
     ];
-    
+
     public function __construct()
     {
         parent::__construct();
         $this->domain = 'http://rr.escoltasoft.ru/docs/api/news?guid=%7BF26148FD-9077-4BE9-A399-6BD661408021%7D&_t=19-01-2023+13%3A08%3A38&_=1674097713879';
     }
 
-    public function parce()
+    public function parce(): void
     {
         $cookieJar = $this->getJar()->fromArray(self::COOKIES, $this->domain);
-        try{
+        try {
             $response = $this->getClient()->get($this->domain, ['cookies' => $cookieJar, 'headers' => self::HEADERS,]);
-            if($response->getStatusCode() == 200) {
+            if ($response->getStatusCode() == 200) {
                 $resBody = (string) $response->getBody();
                 $resBody = json_decode($resBody, true);
-                
+
                 /**
                 * Получаем id, title, date, новостей и добавляем их в obj StorageNews
                 */
 
-                foreach($resBody['feeds'][5]['news'] as $news){
+                foreach ($resBody['feeds'][5]['news'] as $news) {
                     $response = $this->getClient()->post('http://rr.escoltasoft.ru/docs/text', [
                         'query' => [
                             'nd' => $news['id']
@@ -58,29 +57,24 @@ class NewsParce extends Parce
                         'cookies' => $cookieJar,
                         'headers' => self::HEADERS,
                     ]);
-                if($response->getStatusCode() == 200) {
-                    $resBody = (string) $response->getBody();
-        
-                    $document = new Document($resBody);
-                    $paragraphs = $document->find('p.formattext'); 
-        
-                    $text = '';
-                    foreach($paragraphs as $paragraph){
-                        $text .= $paragraph->text();
-                        
-                    }
-                    
-                }
-                StorageNews::addNews(new News($news['id'], $news['title'], $news['date'], $text));
-                }
+                    if ($response->getStatusCode() == 200) {
+                        $resBody = (string) $response->getBody();
 
-            } 
-        }catch(RequestException $e){
+                        $document = new Document($resBody);
+                        $paragraphs = $document->find('p.formattext');
+
+                        $text = '';
+                        foreach ($paragraphs as $paragraph) {
+                            $text .= $paragraph->text();
+                        }
+                    }
+                    StorageNews::addNews(new News($news['id'], $news['title'], $news['date'], $text));
+                }
+            }
+        } catch (RequestException $e) {
             echo Psr7\Message::toString($e->getRequest());
             echo "<p>";
             echo Psr7\Message::toString($e->getResponse());
         }
-
-
     }
 }

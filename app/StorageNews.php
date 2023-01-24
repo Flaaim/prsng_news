@@ -4,19 +4,15 @@ namespace App;
 
 class StorageNews
 {
-    static private $news = [];
+    private static $news = [];
 
-    
-    static function addNews(News $news)
+    public static function addNews(News $news): void
     {
         self::$news[] = $news;
     }
 
-    static function getNews()
+    public static function getNews(): array
     {
         return self::$news;
     }
-    
-
-
 }
