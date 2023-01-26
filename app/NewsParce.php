@@ -6,7 +6,7 @@ use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 use App\Abstract\Parce;
 use DiDom\Document;
-use App\StorageNews;
+use App\StorageSafetyNews;
 use App\SafetyNews;
 
 class NewsParce extends Parce
@@ -68,7 +68,7 @@ class NewsParce extends Parce
                             $text .= $paragraph->text();
                         }
                     }
-                    StorageNews::addNews(new News($news['id'], $news['title'], $news['date'], $text));
+                    StorageSafetyNews::addNews($news['id'], $news['title'], $news['date'], $text);
                 }
             }
         } catch (RequestException $e) {

@@ -2,7 +2,9 @@
 
 namespace App;
 
-class News
+use App\Interfaces\News;
+
+class SafetyNews implements News
 {
     public function __construct(
         protected $id,
@@ -10,6 +12,10 @@ class News
         protected $date,
         protected $text
     ) {
+    }
+    public function getId()
+    {
+        return $this->id;
     }
     public function getTitle(): string
     {
@@ -23,4 +29,6 @@ class News
     {
         return $this->text;
     }
+
+
 }
