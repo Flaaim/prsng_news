@@ -3,11 +3,11 @@
 <?php foreach($news as $item): ?>
     <ol>
         <li>
-            <?= $this->e($item->getTitle()) ?>
+            <?= $this->e($item['title']) ?>
         </li>
     </ol>
     <p>
-        <?= $this->e($item->getText()); ?>
+        <?= $this->e($item['text']); ?>
     </p>
 <?php endforeach ?>
 

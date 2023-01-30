@@ -11,8 +11,8 @@ $collector->get('/', function(){
     $news = new ParcerNews();
     $news->takeParcer();
     
-    //$templates = new League\Plates\Engine('../views');
-    //return $templates->render('news', ['news' => StorageSafetyNews::getNews()]);
+    $templates = new League\Plates\Engine('../views');
+    return $templates->render('news', ['news' => News::$news]);
 });
 
 $collector->get('/ini', function(){

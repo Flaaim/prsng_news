@@ -7,10 +7,7 @@ use Phroute\Phroute\RouteCollector;
 use Phroute\Phroute\Dispatcher;
 use App\ParcerNews;
 
-$news = new ParcerNews();
-$news->takeParcer();
 
-/*
 $collector = new RouteCollector();
 
 function processInput($uri): string
@@ -33,4 +30,4 @@ try {
     die();
 }
 echo $response;
-*/
+
