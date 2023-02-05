@@ -3,5 +3,5 @@
 namespace App;
 
 interface Entity {
-    public function parce();
+    public function parce(ParceSettings $settings);
 }

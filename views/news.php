@@ -1,13 +1,22 @@
 <?php $this->layout('layout'); ?>
 
+
+
+
+
 <?php foreach($news as $item): ?>
-    <ol>
-        <li>
-            <?= $this->e($item['title']) ?>
-        </li>
-    </ol>
+    
+        
+            
+    <?= $this->e($item['title']) ?> 
     <p>
         <?= $this->e($item['text']); ?>
     </p>
+    <p>
+
+            <a href="/news/<?= $this->e($item['id']) ?>">Редактировать</a>
+        </form>
+    </p>
+    <hr>
 <?php endforeach ?>
 

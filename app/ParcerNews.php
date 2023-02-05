@@ -11,4 +11,9 @@ class ParcerNews extends ParcerManager
     {
         return new News();
     }
+
+    public function setSetting(): ParceSettings
+    {
+        return new NewsSettings();
+    }
 }

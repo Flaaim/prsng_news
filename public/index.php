@@ -6,9 +6,12 @@ use DiDom\Document;
 use Phroute\Phroute\RouteCollector;
 use Phroute\Phroute\Dispatcher;
 use App\ParcerNews;
-
+use App\NewsDb;
 
 $collector = new RouteCollector();
+
+
+
 
 function processInput($uri): string
 {
