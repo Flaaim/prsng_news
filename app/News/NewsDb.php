@@ -4,7 +4,7 @@ namespace App\News;
 
 use App\Abstract\Db;
 
-class NewsDb extends Db 
+class NewsDb extends Db
 {
     public $dbh;
 
@@ -15,7 +15,5 @@ class NewsDb extends Db
 
     public function save(Entity $entity)
     {
-
     }
-
 }

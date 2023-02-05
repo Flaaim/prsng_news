@@ -4,6 +4,7 @@ namespace App\Interfaces;
 
 use App\Interfaces\ParceSettings;
 
-interface Entity {
+interface Entity
+{
     public function parce(ParceSettings $settings);
 }

@@ -2,6 +2,7 @@
 
 namespace App\Interfaces;
 
-interface ParceSettings {
+interface ParceSettings
+{
     public function __construct();
 }

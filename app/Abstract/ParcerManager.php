@@ -13,6 +13,6 @@ abstract class ParcerManager
     {
         $settings = $this->setSetting();
         $parcer = $this->makeParcer();
-        $parcer->parce($settings);        
+        $parcer->parce($settings);
     }
 }

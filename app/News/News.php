@@ -11,21 +11,21 @@ use DiDom\Document;
 class News implements Entity
 {
     public static $news = [];
-  
+
     public function parce(ParceSettings $settings)
     {
-    $cookieJar = $settings->getJar()->fromArray($settings::COOKIES, $settings::DOMAIN);
-    
-    try{
-        $response = $settings->getClient()->get($settings::DOMAIN, ['cookies' => $cookieJar, 'headers' => $settings::HEADERS,]);
-        if($response->getStatusCode() == 200){
-            $resBody = (string)$response->getBody();
-            $resBody = json_decode($resBody, true);
+        $cookieJar = $settings->getJar()->fromArray($settings::COOKIES, $settings::DOMAIN);
+
+        try {
+            $response = $settings->getClient()->get($settings::DOMAIN, ['cookies' => $cookieJar, 'headers' => $settings::HEADERS,]);
+            if ($response->getStatusCode() == 200) {
+                $resBody = (string)$response->getBody();
+                $resBody = json_decode($resBody, true);
 
                 /**
                 * Получаем id, title, date, новостей и добавляем их в obj StorageNews
                 */
-                
+
                 foreach ($resBody['feeds'][5]['news'] as $news) {
                     $response = $client->post('http://rr.escoltasoft.ru/docs/text', [
                         'query' => [
@@ -45,16 +45,15 @@ class News implements Entity
                             $text .= $paragraph->text();
                         }
                     }
-                    
+
                     $news['text'] = $text;
                     self::$news[] = $news;
                 }
-                             
+            }
+        } catch (RequestException $e) {
+            echo Psr7\Message::toString($e->getRequest());
+            echo "<p>";
+            echo Psr7\Message::toString($e->getResponse());
         }
-    }catch(RequestException $e){
-        echo Psr7\Message::toString($e->getRequest());
-        echo "<p>";
-        echo Psr7\Message::toString($e->getResponse());
-    }  
     }
 }
