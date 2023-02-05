@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Interfaces;
 
 interface ParceSettings {
     public function __construct();

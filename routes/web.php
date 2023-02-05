@@ -1,10 +1,7 @@
 <?php
 
-use App\NewsParce;
-use App\StorageSafetyNews;
-use App\ParcerNews;
-use App\News;
-use App\NewsDb;
+use App\News\NewsParcer;
+use App\News\News;
 
 $templates = new League\Plates\Engine('../views');
 
@@ -14,7 +11,7 @@ $collector->get('/', function() use ($templates){
 });
 
 $collector->get('/parce', function() use ($templates){
-    $news = new ParcerNews();
+    $news = new NewsParcer();
     $news->takeParcer();
     
     

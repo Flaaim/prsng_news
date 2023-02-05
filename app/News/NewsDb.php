@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\News;
 
-use App\Db;
+use App\Abstract\Db;
 
 class NewsDb extends Db 
 {

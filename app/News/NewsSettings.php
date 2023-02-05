@@ -1,9 +1,10 @@
 <?php
 
-namespace App;
+namespace App\News;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
+use App\Interfaces\ParceSettings;
 
 class NewsSettings implements ParceSettings {
 

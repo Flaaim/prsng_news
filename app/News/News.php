@@ -1,13 +1,12 @@
 <?php
 
-namespace App;
+namespace App\News;
 
-use App\Entity;
+use App\Interfaces\Entity;
+use App\Interfaces\ParceSettings;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
-use App\Abstract\Parce;
 use DiDom\Document;
-use App\Db;
 
 class News implements Entity
 {
