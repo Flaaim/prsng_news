@@ -7,10 +7,11 @@ use App\Interfaces\ParceSettings;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 use DiDom\Document;
+use App\News\NewsCompilation;
 
 class News implements Entity
 {
-    public static $news = [];
+    //public static $news = [];
 
     public function parce(ParceSettings $settings)
     {
@@ -47,7 +48,7 @@ class News implements Entity
                     }
 
                     $news['text'] = $text;
-                    self::$news[] = $news;
+                    NewsCompilation::addNews($news);
                 }
             }
         } catch (RequestException $e) {

@@ -2,6 +2,7 @@
 
 use App\News\NewsParcer;
 use App\News\News;
+use App\News\NewsCompilation;
 
 $templates = new League\Plates\Engine('../views');
 
@@ -15,7 +16,7 @@ $collector->get('/parce', function() use ($templates){
     $news->takeParcer();
     
     
-    return $templates->render('news', ['news' => News::$news]);
+    return $templates->render('news', ['news' => NewsCompilation::$news]);
 });
 
 $collector->get('/news/{id}', function($id){
