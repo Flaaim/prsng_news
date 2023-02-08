@@ -46,9 +46,8 @@ class News implements Entity
                             $text .= $paragraph->text();
                         }
                     }
-
                     $news['text'] = $text;
-                    NewsCompilation::addNews($news);
+                    NewsCompilation::addNews($news, $news['id']);
                 }
             }
         } catch (RequestException $e) {

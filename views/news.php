@@ -4,18 +4,13 @@
 
 
 
-<?php foreach($news as $item): ?>
-    
-        
-            
+<?php foreach($news as $item): ?> 
     <?= $this->e($item['title']) ?> 
     <p>
         <?= $this->e($item['text']); ?>
     </p>
     <p>
-
-            <a href="/news/<?= $this->e($item['id']) ?>">Редактировать</a>
-        </form>
+        <a href="/news/<?= $this->e($item['id']) ?>">Редактировать</a>
     </p>
     <hr>
 <?php endforeach ?>
