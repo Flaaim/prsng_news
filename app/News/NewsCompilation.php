@@ -4,16 +4,16 @@ namespace App\News;
 
 class NewsCompilation 
 {
-    protected $news = [];
+    protected static $news = [];
 
-    public static function addNews(News $news): void
+    public static function addNews(array $news): void
     {
-        $this->news[] = $news;
+        self::$news[] = $news;
     }
 
-    public function getNews(): array
+    public static function getNews(): array
     {
-        return $this->news;
+        return self::$news;
     }
 
 }

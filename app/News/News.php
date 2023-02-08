@@ -28,7 +28,7 @@ class News implements Entity
                 */
 
                 foreach ($resBody['feeds'][5]['news'] as $news) {
-                    $response = $client->post('http://rr.escoltasoft.ru/docs/text', [
+                    $response = $settings->getClient()->post('http://rr.escoltasoft.ru/docs/text', [
                         'query' => [
                             'nd' => $news['id']
                         ],

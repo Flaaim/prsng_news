@@ -16,7 +16,7 @@ $collector->get('/parce', function() use ($templates){
     $news->takeParcer();
     
     
-    return $templates->render('news', ['news' => NewsCompilation::$news]);
+    return $templates->render('news', ['news' => NewsCompilation::getNews()]);
 });
 
 $collector->get('/news/{id}', function($id){
