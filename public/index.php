@@ -5,8 +5,10 @@ require "../vendor/autoload.php";
 use DiDom\Document;
 use Phroute\Phroute\RouteCollector;
 use Phroute\Phroute\Dispatcher;
-use App\ParcerNews;
-use App\NewsDb;
+use App\News\NewsParcer;
+use App\News\News;
+use App\Notifier\TelegramNotifier;
+
 
 $collector = new RouteCollector();
 
@@ -18,6 +20,12 @@ function processInput($uri): string
     $uri = urldecode(parse_url($uri, PHP_URL_PATH));
     return $uri;
 }
+
+$templates = new League\Plates\Engine('../views');
+$news = new NewsParcer();
+$news->takeParcer();
+$tgNotifier = new TelegramNotifier();
+
 
 require "../routes/web.php";
 
