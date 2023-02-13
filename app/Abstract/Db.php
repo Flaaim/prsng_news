@@ -1,14 +1,20 @@
 <?php
 
-namespace App;
+namespace App\Abstract;
 
 abstract class Db {
     protected $dbh;
 
     public function __construct()
     {
-        $this->dbh = new \PDO('mysql:host=192.168.56.56;dbname=parce','homestead', 'secret');
+        try{
+            $this->dbh = new \PDO('mysql:host=192.168.56.56;dbname=parce','homestead', 'secret', [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]);
+        }catch(\PDOException $e){
+            echo $e->getMessage();
+        }
+        
+        
     }
 
-    abstract function save(Entity $entity);
+    abstract function save($id);
 }

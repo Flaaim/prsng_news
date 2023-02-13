@@ -13,7 +13,14 @@ class NewsDb extends Db
         parent::__construct();
     }
 
-    public function save(Entity $entity)
+    public function save($id)
     {
+        $sql = "INSERT INTO news (idnews) VALUES (?)";
+        try{
+            $stmt = $this->dbh->prepare($sql);
+            $stmt->execute([$id]);
+        }catch(\PDOException $e) {
+                echo $e->getMessage();
+        }
     }
 }
