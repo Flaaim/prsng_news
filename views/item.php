@@ -9,7 +9,7 @@
 </p>
     <div class="form-group">
         <label for="text">Текст</label>
-        <textarea name="text" class="form-control" id="text" cols="30" rows="10">
+        <textarea name="text" class="form-control" id="text" cols="30" rows="30">
             <?= $this->e($item['title']); ?>
             
             <?= $this->e($item['text']); ?>

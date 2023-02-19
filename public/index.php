@@ -8,7 +8,7 @@ use Phroute\Phroute\Dispatcher;
 use App\News\NewsParcer;
 use App\News\News;
 use App\Notifier\TelegramNotifier;
-
+use App\News\NewsDb;
 
 $collector = new RouteCollector();
 
@@ -22,8 +22,7 @@ function processInput($uri): string
 }
 
 $templates = new League\Plates\Engine('../views');
-$news = new NewsParcer();
-$news->takeParcer();
+$db = new NewsDB();
 $tgNotifier = new TelegramNotifier();
 
 

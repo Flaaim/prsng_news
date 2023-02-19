@@ -15,6 +15,7 @@ abstract class Db {
         
         
     }
-
-    abstract function save($id);
+    abstract function save($idnews, $title, $text, $date);
+    abstract function index();
+    abstract function show($id);
 }

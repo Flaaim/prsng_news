@@ -20,8 +20,13 @@ class TelegramNotifier implements Notifier
     }
     public function send($message, $id)
     {
-        $this->db->save($id);
-        $this->client->get($message);
+        if($this->db->checkStatus($id)){
+            $this->db->changeStatus($id);
+            $this->client->get($message);
+        } else {
+            die('Статья уже добавлена в ТГ. Вернитесь на <a href="/">главную</a>');
+        }
+        
         
     }
     public function buildLink($text): string
