@@ -12,9 +12,6 @@ use App\News\NewsDb;
 
 $collector = new RouteCollector();
 
-
-
-
 function processInput($uri): string
 {
     $uri = urldecode(parse_url($uri, PHP_URL_PATH));
