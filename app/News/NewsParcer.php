@@ -14,8 +14,8 @@ class NewsParcer extends ParcerManager
         return new News();
     }
 
-    public function setSetting(): ParceSettings
+    public function setSetting($client, $cookie, $db): ParceSettings
     {
-        return new NewsSettings();
+        return new NewsSettings($client, $cookie, $db);
     }
 }

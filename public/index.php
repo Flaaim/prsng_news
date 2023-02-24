@@ -10,9 +10,14 @@ use App\News\News;
 use App\Notifier\TelegramNotifier;
 use App\News\NewsDb;
 use App\ErrorHandler;
+use GuzzleHttp\Client;
+use GuzzleHttp\Cookie\CookieJar;
 
 $collector = new RouteCollector();
 $error = new ErrorHandler();
+$db = new NewsDB();
+$client = new Client();
+$cookie = new CookieJar();
 
 function processInput($uri): string
 {
@@ -21,7 +26,7 @@ function processInput($uri): string
 }
 
 $templates = new League\Plates\Engine('../views');
-$db = new NewsDB();
+
 $tgNotifier = new TelegramNotifier();
 
 

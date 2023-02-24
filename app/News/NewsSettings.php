@@ -29,11 +29,11 @@ class NewsSettings implements ParceSettings
     protected $jar;
     protected $db;
 
-    public function __construct()
+    public function __construct(Client $client, CookieJar $cookie, Db $db)
     {
-        $this->client = new Client();
-        $this->jar = new CookieJar();
-        $this->db = new NewsDb();
+        $this->client = $client;
+        $this->jar = $cookie;
+        $this->db = $db;
     }
 
     public function getJar(): CookieJar

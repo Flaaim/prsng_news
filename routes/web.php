@@ -3,13 +3,14 @@
 use App\News\NewsCompilation;
 use App\News\NewsParcer;
 
+
 $collector->get('/', function() use ($templates, $db){
     return $templates->render('main', ['news' => $db->index()]);
 });
 
-$collector->post('/parce', function() use($templates){
+$collector->post('/parce', function() use($templates, $client, $cookie, $db){
     $news = new NewsParcer();
-    $news->takeParcer();
+    $news->takeParcer($client, $cookie, $db);
     return header("Location: /");
 });
 
