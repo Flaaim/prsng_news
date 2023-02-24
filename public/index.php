@@ -9,8 +9,10 @@ use App\News\NewsParcer;
 use App\News\News;
 use App\Notifier\TelegramNotifier;
 use App\News\NewsDb;
+use App\ErrorHandler;
 
 $collector = new RouteCollector();
+$error = new ErrorHandler();
 
 function processInput($uri): string
 {
@@ -30,10 +32,10 @@ $dispatcher =  new Dispatcher($collector->getData());
 try {
     $response = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], processInput($_SERVER['REQUEST_URI']));
 }catch(Phroute\Phroute\Exception\HttpRouteNotFoundException $e){
-    echo $e->getMessage();
+    $error->exceptionHandler($e, 500);
     die();
 }catch(Phroute\Phroute\Exception\HttpMethodNotAllowedException $e){
-    echo $e->getMessage();
+    $error->exceptionHandler($e, 500);
     die();
 }
 echo $response;
