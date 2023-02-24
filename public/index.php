@@ -9,6 +9,7 @@ use App\News\NewsParcer;
 use App\News\News;
 use App\Notifier\TelegramNotifier;
 use App\News\NewsDb;
+use App\Ohranatruda\OhranatrudaDb;
 
 $collector = new RouteCollector();
 
@@ -20,6 +21,8 @@ function processInput($uri): string
 
 $templates = new League\Plates\Engine('../views');
 $db = new NewsDB();
+$dbo = new OhranatrudaDb();
+
 $tgNotifier = new TelegramNotifier();
 
 
