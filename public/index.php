@@ -8,14 +8,14 @@ use Phroute\Phroute\Dispatcher;
 use App\News\NewsParcer;
 use App\News\News;
 use App\Notifier\TelegramNotifier;
-use App\News\NewsDb;
+use App\Db;
 use App\ErrorHandler;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 
 $collector = new RouteCollector();
 $error = new ErrorHandler();
-$db = new NewsDB();
+$db = new Db();
 $client = new Client();
 $cookie = new CookieJar();
 
@@ -27,7 +27,7 @@ function processInput($uri): string
 
 $templates = new League\Plates\Engine('../views');
 
-$tgNotifier = new TelegramNotifier();
+$tgNotifier = new TelegramNotifier($client, $db);
 
 
 require "../routes/web.php";

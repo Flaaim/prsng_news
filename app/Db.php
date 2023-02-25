@@ -1,19 +1,20 @@
 <?php
 
-namespace App\News;
+namespace App;
 
-use App\Abstract\Db;
-
-class NewsDb extends Db
+class Db
 {
-    public $dbh;
+    protected $dbh;
 
     public function __construct()
     {
-        parent::__construct();
+        try{
+            $this->dbh = new \PDO('mysql:host=192.168.56.56;dbname=parce','homestead', 'secret', [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]);
+        }catch(\PDOException $e){
+            echo $e->getMessage();
+        }
     }
-
-    public function save($idnews, $title, $text, $date): void
+    function save($idnews, $title, $text, $date)
     {
         $sql = "INSERT IGNORE INTO news (idnews, title, text, date) VALUES (?, ?, ?, ?)";
         try{
@@ -23,7 +24,7 @@ class NewsDb extends Db
             echo $e->getMessage();
         }
     }
-    public function index(): array
+    function index()
     {
         $sql = "SELECT id, idnews, title, DATE_FORMAT(date, \"%d.%m.%Y\") as date, status FROM news ORDER BY id DESC";
         try{
@@ -33,7 +34,7 @@ class NewsDb extends Db
         }
         return $data;
     }
-    public function show($id)
+    function show($id)
     {
         $sql = "SELECT id, title, DATE_FORMAT(date, \"%d.%m.%Y г.\") as date, text FROM news WHERE id=?";
         try{
@@ -45,6 +46,7 @@ class NewsDb extends Db
             echo $e->getMessage();
         }
     }
+
     public function changeStatus($id)
     {
         $sql = "UPDATE news SET status = \"1\" WHERE id=?";
@@ -64,4 +66,5 @@ class NewsDb extends Db
         $item = $stmt->fetch(\PDO::FETCH_ASSOC);
         return ($item['status'] == "1") ? false : true;
     }
+
 }

@@ -4,7 +4,7 @@ namespace App\Interfaces;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
-use App\Abstract\Db;
+use App\Db;
 
 interface ParceSettings
 {

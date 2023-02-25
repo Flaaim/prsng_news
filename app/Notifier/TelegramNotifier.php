@@ -3,8 +3,9 @@
 namespace App\Notifier;
 
 use App\Interfaces\Notifier;
+
 use GuzzleHttp\Client;
-use App\News\NewsDb;
+use App\Db;
 
 class TelegramNotifier implements Notifier
 {
@@ -13,10 +14,10 @@ class TelegramNotifier implements Notifier
     protected $client;
     protected $db;
 
-    public function __construct()
+    public function __construct(Client $client, Db $db)
     {
-        $this->client = new Client();
-        $this->db = new NewsDb();
+        $this->client = $client;
+        $this->db = $db;
     }
     public function send($message, $id)
     {

@@ -5,7 +5,7 @@ namespace App\News;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 use App\Interfaces\ParceSettings;
-use App\Abstract\Db;
+use App\Db;
 
 class NewsSettings implements ParceSettings
 {
