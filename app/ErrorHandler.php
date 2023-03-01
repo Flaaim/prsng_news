@@ -10,10 +10,10 @@ class ErrorHandler
         set_exception_handler([$this, 'exceptionHandler']);
     }
 
-    public function exceptionHandler(\Throwable $e, $code)
+    public function exceptionHandler(\Throwable $e)
     {
         $this->logError($e->getMessage(), $e->getFile(), $e->getLine());
-        $this->displayError("Исключение", $e->getMessage(), $e->getFile(), $e->getLine(), $code);
+        $this->displayError("Исключение", $e->getMessage(), $e->getFile(), $e->getLine(), $e->getCode());
     }
     protected function logError($message = '', $file = '', $line = '')
     {

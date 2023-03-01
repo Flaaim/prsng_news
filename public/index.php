@@ -37,10 +37,10 @@ $dispatcher =  new Dispatcher($collector->getData());
 try {
     $response = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], processInput($_SERVER['REQUEST_URI']));
 }catch(Phroute\Phroute\Exception\HttpRouteNotFoundException $e){
-    $error->exceptionHandler($e, 500);
+    $error->exceptionHandler($e);
     die();
 }catch(Phroute\Phroute\Exception\HttpMethodNotAllowedException $e){
-    $error->exceptionHandler($e, 500);
+    $error->exceptionHandler($e);
     die();
 }
 echo $response;

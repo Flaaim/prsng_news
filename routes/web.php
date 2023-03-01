@@ -19,6 +19,7 @@ $collector->get('/news/{id}', function($id) use ($templates, $db){
 });
 
 $collector->post('/send-tg', function()use ($tgNotifier){
+
     $message = $tgNotifier->buildLink($_POST['text']);
     $response = $tgNotifier->send($message, $_POST['id']); 
     return header("Location: /"); 
