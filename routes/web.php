@@ -13,10 +13,10 @@ $collector->post('/parce', function() use($templates){
     $news->takeParcer();
     return header("Location: /");
 });
-$collector->get('/ot-parce', function() use($templates){
+$collector->post('/parce-ot', function() use($templates){
     $ot = new OhranatrudaParcer();
     $ot->takeParcer();
-    //return header("Location: /");
+    return header("Location: /");
 });
 $collector->get('/news/{id}', function($id) use ($templates, $db){
     return $templates->render('item', ['item' => $db->show($id)]);

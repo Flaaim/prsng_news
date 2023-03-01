@@ -55,7 +55,7 @@ class Ohranatruda implements Entity
                 $news[$this->getIdNews($item)]['text'], 
                 date('Y-m-d', strtotime('2023-02-24'))); 
             } 
-            var_dump($news);
+            
         }
     }
 

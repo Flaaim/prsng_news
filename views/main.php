@@ -1,9 +1,25 @@
 <?php $this->layout('layout'); ?>
 
 <h2>Новости техэксперт</h2>
-<form action="/parce" method="POST">
-    <button class="btn btn-primary">Спарсить данные</button>
-</form>
+<div class="row">
+    <div class="col-3">
+    <div class="form-group">
+        <form action="/parce" method="POST">
+            <button class="btn btn-primary">Спарсить:техэксперт</button>
+        </form>
+    </div>
+    </div>
+    <div class="col-3">
+    <div class="form-group">
+        <form action="/parce-ot" method="POST">
+            <button class="btn btn-primary">Спарсить:инспекция</button>
+        </form>
+    </div>
+    </div>
+</div>
+
+
+
 <table class="table">
     <thead>
         <th>ID</th>
