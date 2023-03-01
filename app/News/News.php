@@ -50,7 +50,7 @@ class News implements Entity
                     $news['text'] = $text;
                     $settings->getDb()->save($news['id'], $news['title'], $news['text'], date('Y-m-d', strtotime($news['date'])));
                     //NewsCompilation::addNews($news, $news['id']);
-                }
+                }         
             }
         } catch (RequestException $e) {
             echo Psr7\Message::toString($e->getRequest());
