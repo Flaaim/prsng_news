@@ -13,8 +13,8 @@ class OhranatrudaParcer extends ParcerManager
     {
         return new Ohranatruda();
     }
-    public function setSetting(): ParceSettings
+    public function setSetting($client, $cookie, $db): ParceSettings
     {
-        return new OhranatrudaSettings();
+        return new OhranatrudaSettings($client, $cookie, $db);
     }
 }

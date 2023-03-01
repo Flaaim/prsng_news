@@ -9,14 +9,14 @@ $collector->get('/', function() use ($templates, $db){
     return $templates->render('main', ['news' => $db->index()]);
 });
 
-$collector->post('/parce', function() use($templates){
+$collector->post('/parce', function() use($templates, $client, $cookie, $db){
     $news = new NewsParcer();
-    $news->takeParcer();
+    $news->takeParcer($client, $cookie, $db);
     return header("Location: /");
 });
-$collector->post('/parce-ot', function() use($templates){
+$collector->post('/parce-ot', function() use($templates, $client, $cookie, $db){
     $ot = new OhranatrudaParcer();
-    $ot->takeParcer();
+    $ot->takeParcer($client, $cookie, $db);
     return header("Location: /");
 });
 $collector->get('/news/{id}', function($id) use ($templates, $db){

@@ -13,10 +13,10 @@ class OhranatrudaSettings implements ParceSettings
     protected $client;
     protected $db;
 
-    public function __construct()
+    public function __construct($client, $cookie, $db)
     {
-        $this->client = new Client();
-        $this->db = new OhranatrudaDb();
+        $this->client = $client;
+        $this->db = $db;
     }
     public function getClient()
     {
