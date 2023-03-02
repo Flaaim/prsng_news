@@ -6,7 +6,12 @@ use App\News\NewsParcer;
 use App\Ohranatruda\OhranatrudaParcer;
 
 $collector->get('/', function() use ($templates, $db){
-    return $templates->render('main', ['news' => $db->index()]);
+    return $templates->render('main', [
+        'news' => $db->index(), 
+        'count' => $db->getNumberOfPage(), 
+        'page' => $db->getPagination()::$page, 
+        'currentPage' => $db->getPagination()->getCurrentpage()
+    ]);
 });
 
 $collector->post('/parce', function() use($templates, $client, $cookie, $db){

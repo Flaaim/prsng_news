@@ -2,9 +2,12 @@
 
 namespace App;
 
+use App\Pagination;
+
 class Db
 {
     protected $dbh;
+    protected $pagination;
 
     public function __construct()
     {
@@ -13,6 +16,7 @@ class Db
         }catch(\PDOException $e){
             echo $e->getMessage();
         }
+        $this->pagination = new Pagination;
     }
     function save($idnews, $title, $text, $date)
     {
@@ -26,7 +30,7 @@ class Db
     }
     function index()
     {
-        $sql = "SELECT id, idnews, title, DATE_FORMAT(date, \"%d.%m.%Y\") as date, status FROM news ORDER BY id DESC";
+        $sql = "SELECT id, idnews, title, DATE_FORMAT(date, \"%d.%m.%Y\") as date, status FROM news ORDER BY id DESC LIMIT ".$this->pagination::getPageFirstResult().",".$this->pagination::$resultPerPage;
         try{
             $data = $this->dbh->query($sql)->fetchAll();
         }catch(\PDOException $e){
@@ -65,6 +69,25 @@ class Db
         $stmt->execute([$id]);
         $item = $stmt->fetch(\PDO::FETCH_ASSOC);
         return ($item['status'] == "1") ? false : true;
+    }
+
+    public function getCountRows()
+    {
+        $sql = "SELECT COUNT(*) as count FROM news";
+        try{
+            $count = $this->dbh->query($sql)->fetchColumn();
+        }catch(\PDOException $e){
+            echo $e->getMessage();
+        }
+        return $count;
+    }
+    public function getNumberOfPage()
+    {
+        return ceil(self::getCountRows() / $this->pagination::$resultPerPage);
+    }
+    public function getPagination()
+    {
+        return $this->pagination;
     }
 
 }

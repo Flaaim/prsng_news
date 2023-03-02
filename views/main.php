@@ -47,3 +47,20 @@
     </tbody>
 
 </table>
+<div class="row">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <?php for($page = 1; $page<= $count; $page++): ?>
+                <?php if($page == $currentPage): ?>
+                    <li class="page-item active">
+                    <a class="page-link" href="?page=<?= $page ?>"><?= $page ?></a>
+                </li>
+                <?php else: ?>
+                <li class="page-item">
+                    <a class="page-link" href="?page=<?= $page ?>"><?= $page ?></a>
+                </li>
+                <?php endif ?>
+            <?php endfor ?>
+        </ul>
+    </nav>
+</div>
