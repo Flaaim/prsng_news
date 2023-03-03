@@ -1,6 +1,7 @@
 <?php
 
-require "../vendor/autoload.php";
+require_once "../vendor/autoload.php";
+require_once "../config/init.php";
 
 use DiDom\Document;
 use Phroute\Phroute\RouteCollector;

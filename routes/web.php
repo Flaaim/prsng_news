@@ -4,6 +4,7 @@
 use App\News\NewsCompilation;
 use App\News\NewsParcer;
 use App\Ohranatruda\OhranatrudaParcer;
+use App\Users\UsersParcer;
 
 $collector->get('/', function() use ($templates, $db){
     return $templates->render('main', [
@@ -23,6 +24,11 @@ $collector->post('/parce-ot', function() use($templates, $client, $cookie, $db){
     $ot = new OhranatrudaParcer();
     $ot->takeParcer($client, $cookie, $db);
     return header("Location: /");
+});
+$collector->get('/parce-us', function() use($templates, $client, $cookie, $db){
+    $ot = new UsersParcer();
+    $ot->takeParcer($client, $cookie, $db);
+    //return header("Location: /");
 });
 $collector->get('/news/{id}', function($id) use ($templates, $db){
     return $templates->render('item', ['item' => $db->show($id)]);
