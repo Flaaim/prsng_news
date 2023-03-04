@@ -9,30 +9,36 @@ use DiDom\Document;
 
 class Users implements Entity
 {
+    public const PATH = ROOT."/docs/emails.txt";
+    public const FIRST = 201;
+    public const LAST = 1000;
+    
+
     public function parce($settings)
     {
-        
         try{
-            //for($i = 2; $i <= 5; $i++){
-                $response = $settings->getClient()->get($settings::DOMAIN."4/");
-                
-                if($response->getStatusCode() == 500){
-                    
-                    $resBody = (string)$response->getBody();
-                    $resBody = iconv("windows-1251","utf-8", $resBody);
-                    $document = new Document($resBody);
-                     
-                    $emails = $document->find("div soc-block-contact-item");
-                    var_dump($emails);
-                    //file_put_contents(ROOT."/docs/users.txt", "hello \r\n", FILE_APPEND);
-                }
-            //}
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_HEADER, false);
 
-        }catch(RequestException $e){
-            echo Psr7\Message::toString($e->getRequest());
-            echo "<p>";
-            echo Psr7\Message::toString($e->getResponse());
-            
+            for($i = self::FIRST; $i <= self::LAST; $i++){
+                curl_setopt($curl, CURLOPT_URL, $settings::DOMAIN."$i/");
+                $str = curl_exec($curl);
+                $document = new Document($str);
+                $content = $document->find('div.soc-block-contact-item');
+                if(!empty($content[0])){
+                    if(str_contains($content[0]->text(), '@')){
+                        $email = trim($content[0]->text());
+                        file_put_contents(self::PATH, $email."\r\n", FILE_APPEND);
+                    }
+
+                }
+            }
+            curl_close($curl);   
+        }catch(\Exception $e){
+            $error->exceptionHandler($e);
+            die();
         }
+       
     }
 }

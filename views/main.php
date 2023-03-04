@@ -16,6 +16,9 @@
         </form>
     </div>
     </div>
+    <div class="col-3">
+            <a href="/parce-users">пользователи</a>
+    </div>
 </div>
 
 
