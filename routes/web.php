@@ -11,8 +11,8 @@ $collector->get('/', function() use ($templates, $db){
     return $templates->render('main', [
         'news' => $db->index(), 
         'count' => $db->getNumberOfPage(), 
-        'page' => $db->getPagination()::$page, 
-        'currentPage' => $db->getPagination()->getCurrentpage()
+        'page' => $db::$page, 
+        'currentPage' => $db->getCurrentpage()
     ]);
 });
 

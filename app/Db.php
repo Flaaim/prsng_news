@@ -3,14 +3,19 @@
 namespace App;
 
 use App\Pagination;
+use App\TPagination;
 
 class Db
 {   
+    use TPagination;
+
     public const STATUS_SEND = 'Отправлено';
     public const STATUS_UNSEND = 'Неотправлено';
 
+    protected const SQL_INDEX = "SELECT news.id, idnews, title, DATE_FORMAT(date, \"%d.%m.%Y\") as date,  status, name FROM news LEFT JOIN source ON news.source_id = source.id  ORDER BY id DESC";
+
+    
     protected $dbh;
-    protected $pagination;
 
     public function __construct()
     {
@@ -19,7 +24,7 @@ class Db
         }catch(\PDOException $e){
             echo $e->getMessage();
         }
-        $this->pagination = new Pagination;
+        $this->setPagination();
     }
     public function save($idnews, $title, $text, $date)
     {
@@ -33,10 +38,7 @@ class Db
     }
     public function index(): array
     {
-        $sql = "SELECT news.id, idnews, title, DATE_FORMAT(date, \"%d.%m.%Y\") as date, status, name 
-        FROM news LEFT JOIN source ON news.source_id = source.id 
-        ORDER BY id DESC 
-        LIMIT ".$this->pagination::getPageFirstResult().",".$this->pagination::$resultPerPage;
+        $sql = self::SQL_INDEX.$this->paginationPostfix();
         try{
             $data = $this->dbh->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
             $data = $this->setSource($data);
@@ -76,25 +78,6 @@ class Db
         $stmt->execute([$id]);
         $item = $stmt->fetch(\PDO::FETCH_ASSOC);
         return ($item['status'] == "1") ? false : true;
-    }
-
-    public function getCountRows()
-    {
-        $sql = "SELECT COUNT(*) as count FROM news";
-        try{
-            $count = $this->dbh->query($sql)->fetchColumn();
-        }catch(\PDOException $e){
-            echo $e->getMessage();
-        }
-        return $count;
-    }
-    public function getNumberOfPage()
-    {
-        return ceil(self::getCountRows() / $this->pagination::$resultPerPage);
-    }
-    public function getPagination()
-    {
-        return $this->pagination;
     }
     public function setSource($data): array
     {
