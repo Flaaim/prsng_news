@@ -24,10 +24,6 @@ class News implements Entity
                 $resBody = (string)$response->getBody();
                 $resBody = json_decode($resBody, true);
 
-                /**
-                * Получаем id, title, date, новостей и добавляем их в obj StorageNews
-                */
-
                 foreach ($resBody['feeds'][5]['news'] as $news) {
                     $response = $settings->getClient()->post('http://rr.escoltasoft.ru/docs/text', [
                         'query' => [

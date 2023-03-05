@@ -10,8 +10,8 @@ use DiDom\Document;
 class Users implements Entity
 {
     public const PATH = ROOT."/docs/emails.txt";
-    public const FIRST = 201;
-    public const LAST = 1000;
+    public const FIRST = 1001;
+    public const LAST = 2000;
     
 
     public function parce($settings)

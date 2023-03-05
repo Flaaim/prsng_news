@@ -4,20 +4,20 @@
 <div class="row">
     <div class="col-3">
     <div class="form-group">
-        <form action="/parce" method="POST">
+        <form action="/news/parce" method="POST">
             <button class="btn btn-primary">Спарсить:техэксперт</button>
         </form>
     </div>
     </div>
     <div class="col-3">
     <div class="form-group">
-        <form action="/parce-ot" method="POST">
+        <form action="/news/parce-ot" method="POST">
             <button class="btn btn-primary">Спарсить:инспекция</button>
         </form>
     </div>
     </div>
     <div class="col-3">
-            <a href="/parce-users">пользователи</a>
+            <a href="/users">Пользователи</a>
     </div>
 </div>
 
@@ -26,10 +26,11 @@
 <table class="table">
     <thead>
         <th>ID</th>
-        <th>Date</th>
-        <th>Title</th>
-        <th>Status</th>
-        <th>Actions</th>
+        <th>Дата</th>
+        <th>Заголовок</th>
+        <th>Откуда</th>
+        <th>Статус</th>
+        <th>Действия</th>
     </thead>
     <tbody>
         <?php foreach($news as $item): ?> 
@@ -37,13 +38,18 @@
                 <td><?= $this->e($item['idnews']) ?></td>
                 <td><?= $this->e($item['date']) ?></td>
                 <td><?= $this->e($item['title']) ?></td>
-                    <?php if ($this->e($item['status']) == 1): ?>
-                        <td><span class="badge bg-primary">Отправлено</span></td>
-                    <?php else:?>
-                        <td><span class="badge bg-secondary">Неотправлено</span></td>
-                    <?php endif ?>
+                <?php if($this->e($item['name']) == 'Инспекция'): ?>
+                        <td><span>Инспекция</span></td>
+                <?php else: ?>
+                        <td><span>Техэксперт</span></td>
+                <?php endif ?>
+                <?php if($this->e($item['status']) == "Отправлено"): ?>
+                    <td><span class="badge bg-primary"><?= $this->e($item['status']) ?></span></td>
+                <?php else: ?>
+                    <td><span class="badge bg-secondary"><?= $this->e($item['status']) ?></span></td>
+                <?php endif ?>
                 <td>
-                    <a href="/news/<?= $this->e($item['id']) ?>">Show</a>
+                    <a href="/news/<?= $this->e($item['id']) ?>">Показать</a>
                 </td>
             </tr>
         <?php endforeach ?>

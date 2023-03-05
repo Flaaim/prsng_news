@@ -5,7 +5,10 @@ namespace App;
 use App\Pagination;
 
 class Db
-{
+{   
+    public const STATUS_SEND = 'Отправлено';
+    public const STATUS_UNSEND = 'Неотправлено';
+
     protected $dbh;
     protected $pagination;
 
@@ -18,7 +21,7 @@ class Db
         }
         $this->pagination = new Pagination;
     }
-    function save($idnews, $title, $text, $date)
+    public function save($idnews, $title, $text, $date)
     {
         $sql = "INSERT IGNORE INTO news (idnews, title, text, date) VALUES (?, ?, ?, ?)";
         try{
@@ -28,17 +31,21 @@ class Db
             echo $e->getMessage();
         }
     }
-    function index()
+    public function index(): array
     {
-        $sql = "SELECT id, idnews, title, DATE_FORMAT(date, \"%d.%m.%Y\") as date, status FROM news ORDER BY id DESC LIMIT ".$this->pagination::getPageFirstResult().",".$this->pagination::$resultPerPage;
+        $sql = "SELECT news.id, idnews, title, DATE_FORMAT(date, \"%d.%m.%Y\") as date, status, name 
+        FROM news LEFT JOIN source ON news.source_id = source.id 
+        ORDER BY id DESC 
+        LIMIT ".$this->pagination::getPageFirstResult().",".$this->pagination::$resultPerPage;
         try{
-            $data = $this->dbh->query($sql)->fetchAll();
+            $data = $this->dbh->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+            $data = $this->setSource($data);
         }catch(\PDOException $e){
             echo $e->getMessage();
         }
         return $data;
     }
-    function show($id)
+    public function show($id)
     {
         $sql = "SELECT id, title, DATE_FORMAT(date, \"%d.%m.%Y г.\") as date, text FROM news WHERE id=?";
         try{
@@ -88,6 +95,17 @@ class Db
     public function getPagination()
     {
         return $this->pagination;
+    }
+    public function setSource($data): array
+    {
+        foreach($data as &$value){
+            if($value['status'] == '1'){
+                $value['status'] = self::STATUS_SEND;
+            }else{
+                $value['status'] = self::STATUS_UNSEND;
+            }
+        }
+        return $data;
     }
 
 }
