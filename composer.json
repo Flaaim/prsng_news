@@ -3,7 +3,8 @@
         "guzzlehttp/guzzle": "^7.5",
         "imangazaliev/didom": "^2.0",
         "league/plates": "^3.5",
-        "phroute/phroute": "^2.2"
+        "phroute/phroute": "^2.2",
+        "phpmailer/phpmailer": "^6.8"
     },
     "autoload": {
         "psr-4": {

@@ -46,7 +46,7 @@ $collector->group(['prefix' => 'users'], function($collector) use ($templates, $
     $collector->post('/parce-us', function() use($templates, $client, $cookie, $db){
         $ot = new UsersParcer();
         $ot->takeParcer($client, $cookie, $db);
-        return header("Location: /");
+        return header("Location: /users");
     });
 });
 
