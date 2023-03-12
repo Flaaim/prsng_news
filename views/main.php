@@ -49,7 +49,7 @@
                     <td><span class="badge bg-secondary"><?= $this->e($item['status']) ?></span></td>
                 <?php endif ?>
                 <td>
-                    <a href="/news/<?= $this->e($item['id']) ?>">Показать</a>
+                    <a href="/<?= $this->e($item['id']) ?>">Показать</a>
                 </td>
             </tr>
         <?php endforeach ?>

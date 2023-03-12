@@ -26,9 +26,8 @@ function processInput($uri): string
     return $uri;
 }
 
-$templates = new League\Plates\Engine('../views');
 
-$tgNotifier = new TelegramNotifier($client, $db);
+
 
 
 require "../routes/web.php";

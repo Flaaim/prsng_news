@@ -1,28 +1,22 @@
 
 <?php
 
-use App\News\NewsCompilation;
-use App\News\NewsParcer;
-use App\Ohranatruda\OhranatrudaParcer;
-use App\Users\UsersParcer;
-use App\Users\Users;
+$collector->get('/', ['App\Controllers\HomeController', 'index']);
+$collector->get('/{id}', ['App\Controllers\HomeController', 'show']);
 
-$collector->get('/', function() use ($templates, $db){
-    return $templates->render('main', [
-        'news' => $db->index(), 
-        'count' => $db->getNumberOfPage(), 
-        'page' => $db::$page, 
-        'currentPage' => $db->getCurrentpage()
-    ]);
+$collector->group(['prefix' => 'news'], function($collector){
+    $collector->post('/parce', ['App\Controllers\ParceController', 'parce']);
+    $collector->post('/parce-ot', ['App\Controllers\ParceController', 'parce_ot']);
 });
 
-//Parsing news
+$collector->post('/send-tg', ['App\Controllers\NotifierController', 'send']);
 
+
+//Parsing news
+/*
 $collector->group(['prefix' => 'news'], function($collector)use($templates, $client, $cookie, $db){
     $collector->post('/parce', function() use($templates, $client, $cookie, $db){
-        $news = new NewsParcer();
-        $news->takeParcer($client, $cookie, $db);
-        return header("Location: /");
+
     });
     $collector->post('/parce-ot', function() use($templates, $client, $cookie, $db){
         $ot = new OhranatrudaParcer();
@@ -51,13 +45,17 @@ $collector->group(['prefix' => 'users'], function($collector) use ($templates, $
 });
 
 
-
-
-
-
 $collector->post('/send-tg', function()use ($tgNotifier){
     $message = $tgNotifier->buildLink($_POST['text']);
     $response = $tgNotifier->send($message, $_POST['id']); 
     return header("Location: /"); 
 });
+
+*/
+
+
+
+
+
+
 

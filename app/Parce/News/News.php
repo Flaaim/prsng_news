@@ -1,14 +1,12 @@
 <?php
 
-namespace App\News;
+namespace App\Parce\News;
 
 use App\Interfaces\Entity;
-use App\Interfaces\ParceSettings;
+use App\Abstract\ParceSettings;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 use DiDom\Document;
-
-use App\News\NewsDb;
 
 class News implements Entity
 {
@@ -44,7 +42,7 @@ class News implements Entity
                         }
                     }
                     $news['text'] = $text;
-                    $settings->getDb()->save($news['id'], $news['title'], $news['text'], date('Y-m-d', strtotime($news['date'])));
+                    $settings->getModel()->save($news['id'], $news['title'], $news['text'], date('Y-m-d', strtotime($news['date'])));
                     //NewsCompilation::addNews($news, $news['id']);
                 }         
             }

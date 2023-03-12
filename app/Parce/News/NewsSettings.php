@@ -1,13 +1,13 @@
 <?php
 
-namespace App\News;
+namespace App\Parce\News;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
-use App\Interfaces\ParceSettings;
-use App\Db;
+use App\Abstract\ParceSettings;
+use App\Models\Model;
 
-class NewsSettings implements ParceSettings
+class NewsSettings extends ParceSettings
 {
     public const COOKIES = [
     'Kodeks' => '1678666721',
@@ -25,28 +25,5 @@ class NewsSettings implements ParceSettings
     'Host' => 'rr.escoltasoft.ru',
     'Upgrade-Insecure-Requests' => 1,
     'X-Requested-With' => 'XMLHttpRequest'];
-    protected $client;
-    protected $jar;
-    protected $db;
-
-    public function __construct(Client $client, CookieJar $cookie, Db $db)
-    {
-        $this->client = $client;
-        $this->jar = $cookie;
-        $this->db = $db;
-    }
-
-    public function getJar(): CookieJar
-    {
-        return $this->jar;
-    }
-
-    public function getClient(): Client
-    {
-        return $this->client;
-    }
-    public function getDb(): Db
-    {
-        return $this->db;
-    }
+    
 }

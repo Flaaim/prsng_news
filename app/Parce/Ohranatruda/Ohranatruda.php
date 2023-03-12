@@ -1,9 +1,9 @@
 <?php 
 
-namespace App\Ohranatruda;
+namespace App\Parce\Ohranatruda;
 
 use App\Interfaces\Entity;
-use App\Interfaces\ParceSettings;
+use App\Abstract\ParceSettings;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 use DiDom\Document;
@@ -49,7 +49,7 @@ class Ohranatruda implements Entity
                     }
                 }
               
-           $settings->getDb()->save(
+           $settings->getModel()->save(
                 $news[$this->getIdNews($item)]['id'],
                 $news[$this->getIdNews($item)]['title'], 
                 $news[$this->getIdNews($item)]['text'], 

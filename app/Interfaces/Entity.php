@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-use App\Interfaces\ParceSettings;
+use App\Abstract\ParceSettings;
 
 interface Entity
 {
