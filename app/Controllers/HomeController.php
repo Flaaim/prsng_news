@@ -10,12 +10,12 @@ class HomeController extends Controller
 
     public function index()
     {
-        $news = new News();
+        $news = new News($this->db);
         return $this->template->render('main', [
             'news' => $news->index(), 
-            'count' => $news->getDb()->getNumberOfPage(), 
-            'page' => $news->getDb()::$page, 
-            'currentPage' => $news->getDb()->getCurrentpage()
+            //'count' => $news->getNumberOfPage(), 
+            //'page' => $news->db::$page, 
+            //'currentPage' => $news->db->getCurrentpage()
         ]);
     }
 

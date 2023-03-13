@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Model;
+use App\Db;
 
 class News extends Model
 {
@@ -13,7 +14,7 @@ class News extends Model
     {
         $sql = "SELECT news.id, idnews, title, DATE_FORMAT(date, \"%d.%m.%Y\") as date,  status, name FROM news LEFT JOIN source ON news.source_id = source.id  ORDER BY id DESC"; //$this->paginationPostfix();
         try{
-            $data = $this->db->getDbh()->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+            $data = $this->db->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
             $data = $this->setSource($data);
         }catch(\PDOException $e){
             echo $e->getMessage();

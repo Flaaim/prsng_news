@@ -7,7 +7,7 @@ use App\Models\OhranaTruda;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 use App\Parce\News\NewsParcer;
-use App\Parce\OhranaTruda\OhranaTrudaParcer;
+use App\Parce\OhranaTruda\OhranatrudaParcer;
 use App\Db;
 
 class ParceController extends Controller
@@ -24,6 +24,8 @@ class ParceController extends Controller
     public function parce()
     {
         $model = new News();
+        var_dump($model);
+        die();
         $news = new NewsParcer();
         $news->takeParcer($this->client, $this->cookie, $model);
         return header("Location: /");

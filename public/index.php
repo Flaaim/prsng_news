@@ -16,9 +16,7 @@ use GuzzleHttp\Cookie\CookieJar;
 
 $collector = new RouteCollector();
 $error = new ErrorHandler();
-$db = new Db();
-$client = new Client();
-$cookie = new CookieJar();
+
 
 function processInput($uri): string
 {

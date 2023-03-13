@@ -8,26 +8,20 @@ use App\TSingleton;
 
 class Db
 {   
-    use TPagination;
-    use TSingleton;
-    protected $dbh;
+    public $pdo;
 
     public function __construct()
     {
         try{
-            $conn = [
-                'dsn' => 'mysql:host=192.168.56.56;dbname=parce',
-                'user' => 'homestead',
-                'password' => 'secret',
-            ];
-            $this->dbh = new \PDO($conn['dsn'],$conn['user'], $conn['password'], [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]);
+            require ROOT . "/config/configDb.php";
+            $this->pdo = new \PDO($conn['dsn'],$conn['user'], $conn['password'], [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]);
         }catch(\PDOException $e){
             echo $e->getMessage();
         }
-        $this->setPagination();
     }
-    public function getDbh()
+    public function getDb()
     {
-        return $this->dbh;
+        return $this->pdo;
     }
+
 }

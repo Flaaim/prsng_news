@@ -6,14 +6,9 @@ use App\Db;
 
 abstract class Model
 {
-    protected $db;
-
-    public function __construct()
+    public $db;
+    public function __construct(Db $db)
     {
-        $this->db = new Db();
-    }
-    public function getDb()
-    {
-        return $this->db;
+       $this->db = $db;
     }
 }
