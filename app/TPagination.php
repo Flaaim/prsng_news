@@ -16,7 +16,7 @@ trait TPagination
         }
     }
 
-    protected  function paginationPostfix() {
+    protected function paginationPostfix() {
         return " LIMIT ".self::getPageFirstResult().",".self::$resultPerPage;
     }
 
@@ -38,7 +38,7 @@ trait TPagination
     {
         $sql = "SELECT COUNT(*) as count FROM news";
         try{
-            $count = $this->dbh->query($sql)->fetchColumn();
+            $count = $this->getDb()->query($sql)->fetchColumn();
         }catch(\PDOException $e){
             echo $e->getMessage();
         }

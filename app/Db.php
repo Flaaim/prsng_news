@@ -2,26 +2,19 @@
 
 namespace App;
 
-use App\Pagination;
-use App\TPagination;
-use App\TSingleton;
-
 class Db
 {   
-    public $pdo;
+    protected static $instance = null;
 
-    public function __construct()
+    private function __construct()
+    {}
+
+    public static function getInstance()
     {
-        try{
-            require ROOT . "/config/configDb.php";
-            $this->pdo = new \PDO($conn['dsn'],$conn['user'], $conn['password'], [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]);
-        }catch(\PDOException $e){
-            echo $e->getMessage();
+        require_once ROOT . "/config/configDB.php";
+        if(!self::$instance){
+            return self::$instance = new \PDO($conn['dsn'],$conn['user'], $conn['password'], [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]);
         }
+        return self::$instance;
     }
-    public function getDb()
-    {
-        return $this->pdo;
-    }
-
 }

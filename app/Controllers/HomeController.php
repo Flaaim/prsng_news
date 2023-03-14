@@ -4,18 +4,19 @@ namespace App\Controllers;
 
 use App\Controllers\Controller;
 use App\Models\News;
+use App\Db;
 
 class HomeController extends Controller
 {
 
     public function index()
     {
-        $news = new News($this->db);
+        $news = new News();
         return $this->template->render('main', [
             'news' => $news->index(), 
-            //'count' => $news->getNumberOfPage(), 
-            //'page' => $news->db::$page, 
-            //'currentPage' => $news->db->getCurrentpage()
+            'count' => $news->getNumberOfPage(), 
+            'page' => $news::$page, 
+            'currentPage' => $news->getCurrentpage()
         ]);
     }
 

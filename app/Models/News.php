@@ -4,17 +4,22 @@ namespace App\Models;
 
 use App\Models\Model;
 use App\Db;
+use RedBeanPHP\R;
+use App\TPagination;
 
 class News extends Model
 {
+    use TPagination;
+
     public const STATUS_SEND = 'Отправлено';
     public const STATUS_UNSEND = 'Неотправлено';
 
     public function index(): array
     {
-        $sql = "SELECT news.id, idnews, title, DATE_FORMAT(date, \"%d.%m.%Y\") as date,  status, name FROM news LEFT JOIN source ON news.source_id = source.id  ORDER BY id DESC"; //$this->paginationPostfix();
+        $this->setPagination();
+        $sql = "SELECT news.id, idnews, title, DATE_FORMAT(date, \"%d.%m.%Y\") as date,  status, name FROM news LEFT JOIN source ON news.source_id = source.id ORDER BY id DESC ".$this->paginationPostfix();
         try{
-            $data = $this->db->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+            $data = $this->getDb()->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
             $data = $this->setSource($data);
         }catch(\PDOException $e){
             echo $e->getMessage();
@@ -25,7 +30,7 @@ class News extends Model
     {
         $sql = "INSERT IGNORE INTO news (idnews, title, text, date) VALUES (?, ?, ?, ?)";
         try{
-            $stmt = $this->db->getDbh()->prepare($sql);
+            $stmt = $this->getDb()->getPdo()->prepare($sql);
             $stmt->execute([$idnews, $title, $text, $date]);
         }catch(\PDOException $e) {
             echo $e->getMessage();
@@ -35,7 +40,7 @@ class News extends Model
     {
         $sql = "SELECT id, title, DATE_FORMAT(date, \"%d.%m.%Y г.\") as date, text FROM news WHERE id=?";
         try{
-            $stmt = $this->db->getDbh()->prepare($sql);
+            $stmt = $this->getDb()->getPdo()->prepare($sql);
             $stmt->execute([$id]);
             $item = $stmt->fetch(\PDO::FETCH_ASSOC);
             return $item;
@@ -47,7 +52,7 @@ class News extends Model
     {
         $sql = "UPDATE news SET status = \"1\" WHERE id=?";
         try{
-            $stmt = $this->db->getDbh()->prepare($sql);
+            $stmt = $this->getDb()->getPdo()->prepare($sql);
             $stmt->execute([$id]);
             return true;
         }catch(\PDOException $e){
@@ -57,7 +62,7 @@ class News extends Model
     public function checkStatus($id)
     {
         $sql = "SELECT id, status FROM news WHERE id=?";
-        $stmt = $this->db->getDbh()->prepare($sql);
+        $stmt = $this->getDb()->getPdo()->prepare($sql);
         $stmt->execute([$id]);
         $item = $stmt->fetch(\PDO::FETCH_ASSOC);
         return ($item['status'] == "1") ? false : true;
