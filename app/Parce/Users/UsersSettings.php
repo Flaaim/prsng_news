@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Users;
+namespace App\Parce\Users;
 
-use App\Interfaces\ParceSettings;
+use App\Abstract\ParceSettings;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
-use App\Abstract\Db;
 
-class UsersSettings implements ParceSettings
+
+class UsersSettings extends ParceSettings
 {
     public const DOMAIN = 'https://ohranatruda.ru/ssot/user/';
 
@@ -19,12 +19,4 @@ class UsersSettings implements ParceSettings
         )
     {}
 
-    public function getClient()
-    {
-        return $this->client;
-    }
-    public function getDb()
-    {
-        return $this->db;
-    }
 }

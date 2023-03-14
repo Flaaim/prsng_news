@@ -12,9 +12,10 @@ use GuzzleHttp\Cookie\CookieJar;
 
 class OhranatrudaParcer extends ParcerManager
 {
-    public function makeParcer(): Entity
+    public function makeParcer($parcerModel): Entity
     {
-        return new Ohranatruda();
+       // $modelParcer = "App\Parce\Ohranatruda\Ohranatruda";
+        return new $parcerModel();
     }
     public function setSetting(Client $client, CookieJar $cookie, Model $model): ParceSettings
     {

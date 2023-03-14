@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Users;
+namespace App\Parce\Users;
 
 use App\Interfaces\Entity;
 use GuzzleHttp\Psr7;
@@ -11,7 +11,7 @@ class Users implements Entity
 {
     public const PATH = ROOT."/docs/emails.txt";
     public const FIRST = 40000;
-    public const LAST = 41000;
+    public const LAST = 40100;
     
     public $emails = [];
 

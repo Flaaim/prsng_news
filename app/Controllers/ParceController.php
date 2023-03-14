@@ -23,18 +23,14 @@ class ParceController extends Controller
     }
     public function parce()
     {
+        $parcerModel = $_POST['source'];
         $model = new News();
-        var_dump($model);
-        die();
-        $news = new NewsParcer();
-        $news->takeParcer($this->client, $this->cookie, $model);
+        $news = 'App\\Parce\\'.$parcerModel.'\\'.$parcerModel.'Parcer';
+        $news = new $news();
+        $parcerModel = 'App\\Parce\\'.$parcerModel.'\\'.$parcerModel;
+
+        $news->takeParcer($this->client, $this->cookie, $model, $parcerModel);
         return header("Location: /");
     }
-    public function parce_ot()
-    {
-        $model = new OhranaTruda();
-        $news = new OhranatrudaParcer();
-        $news->takeParcer($this->client, $this->cookie, $model);
-        return header("Location: /");
-    }
+
 }

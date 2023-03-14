@@ -2,11 +2,12 @@
 <?php
 
 $collector->get('/', ['App\Controllers\HomeController', 'index']);
+$collector->get('/users', ['App\Controllers\UserController', 'index']);
 $collector->get('/{id}', ['App\Controllers\HomeController', 'show']);
 
 $collector->group(['prefix' => 'news'], function($collector){
     $collector->post('/parce', ['App\Controllers\ParceController', 'parce']);
-    $collector->post('/parce-ot', ['App\Controllers\ParceController', 'parce_ot']);
+    //$collector->post('/parce-ot', ['App\Controllers\ParceController', 'parce_ot']);
 });
 
 $collector->post('/send-tg', ['App\Controllers\NotifierController', 'send']);

@@ -6,13 +6,15 @@
     <div class="form-group">
         <form action="/news/parce" method="POST">
             <button class="btn btn-primary">Спарсить:техэксперт</button>
+            <input type="hidden" name="source" value="News">
         </form>
     </div>
     </div>
     <div class="col-3">
     <div class="form-group">
-        <form action="/news/parce-ot" method="POST">
+        <form action="/news/parce" method="POST">
             <button class="btn btn-primary">Спарсить:инспекция</button>
+            <input type="hidden" name="source" value="OhranaTruda">
         </form>
     </div>
     </div>

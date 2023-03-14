@@ -12,9 +12,9 @@ use GuzzleHttp\Cookie\CookieJar;
 
 class NewsParcer extends ParcerManager
 {
-    public function makeParcer(): Entity
+    public function makeParcer($parcerModel): Entity
     {
-        return new News();
+        return new $parcerModel();
     }
 
     public function setSetting(Client $client, CookieJar $cookie, Model $model): ParceSettings

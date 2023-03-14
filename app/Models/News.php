@@ -30,7 +30,7 @@ class News extends Model
     {
         $sql = "INSERT IGNORE INTO news (idnews, title, text, date) VALUES (?, ?, ?, ?)";
         try{
-            $stmt = $this->getDb()->getPdo()->prepare($sql);
+            $stmt = $this->getDb()->prepare($sql);
             $stmt->execute([$idnews, $title, $text, $date]);
         }catch(\PDOException $e) {
             echo $e->getMessage();
@@ -40,7 +40,7 @@ class News extends Model
     {
         $sql = "SELECT id, title, DATE_FORMAT(date, \"%d.%m.%Y г.\") as date, text FROM news WHERE id=?";
         try{
-            $stmt = $this->getDb()->getPdo()->prepare($sql);
+            $stmt = $this->getDb()->prepare($sql);
             $stmt->execute([$id]);
             $item = $stmt->fetch(\PDO::FETCH_ASSOC);
             return $item;
@@ -52,7 +52,7 @@ class News extends Model
     {
         $sql = "UPDATE news SET status = \"1\" WHERE id=?";
         try{
-            $stmt = $this->getDb()->getPdo()->prepare($sql);
+            $stmt = $this->getDb()->prepare($sql);
             $stmt->execute([$id]);
             return true;
         }catch(\PDOException $e){
@@ -62,7 +62,7 @@ class News extends Model
     public function checkStatus($id)
     {
         $sql = "SELECT id, status FROM news WHERE id=?";
-        $stmt = $this->getDb()->getPdo()->prepare($sql);
+        $stmt = $this->getDb()->prepare($sql);
         $stmt->execute([$id]);
         $item = $stmt->fetch(\PDO::FETCH_ASSOC);
         return ($item['status'] == "1") ? false : true;

@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Users;
+namespace App\Parce\Users;
 
 use App\Abstract\ParcerManager;
 use App\Interfaces\Entity;
-use App\Interfaces\ParceSettings;
+use App\Abstract\ParceSettings;
 
 class UsersParcer extends ParcerManager
 {
-    public function makeParcer(): Entity
+    public function makeParcer($parcerModel): Entity
     {
-        return new Users();
+        return new $parcerModel();
     }
     public function setSetting($client, $cookie, $db): ParceSettings
     {
