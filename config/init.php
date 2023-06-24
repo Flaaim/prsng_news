@@ -8,4 +8,4 @@ define("HELPERS", ROOT."/helpers/helpers.php");
 define("CACHE", ROOT."/tmp/cache");
 define("CONFIG", ROOT . "/config");
 define("LAYOUT", 'layout');
-define("PATH", "http://framework.test"); // менять если другой URL
+define("PATH", "http://ot-parcing.loc"); // менять если другой URL
