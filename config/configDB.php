@@ -1,5 +1,5 @@
 <?php
 
-$dsn = 'mysql:host=192.168.56.56;dbname=framework';
-$user = 'homestead';
-$pass = 'secret';
+$dsn = 'mysql:host=localhost;dbname=ot-parcing';
+$user = 'root';
+$pass = '';

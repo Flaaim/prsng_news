@@ -12,7 +12,7 @@ return
         'production' => [
             'adapter' => 'mysql',
             'host' => 'localhost',
-            'name' => 'production_db',
+            'name' => 'ot-parcing',
             'user' => 'root',
             'pass' => '',
             'port' => '3306',
@@ -20,10 +20,10 @@ return
         ],
         'development' => [
             'adapter' => 'mysql',
-            'host' => '192.168.56.56',
-            'name' => 'framework',
-            'user' => 'homestead',
-            'pass' => 'secret',
+            'host' => 'localhost',
+            'name' => 'ot-parcing',
+            'user' => 'root',
+            'pass' => '',
             'port' => '3306',
             'charset' => 'utf8',
         ],

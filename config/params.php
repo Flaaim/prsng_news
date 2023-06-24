@@ -1,6 +1,6 @@
 <?php
 
 $params = [
-    'admin_email' => 'admin@help-ot.ru',
-    'site_name' => 'Help-ot.shop',
+    'admin_email' => '',
+    'site_name' => 'OT|PARCING',
 ];
