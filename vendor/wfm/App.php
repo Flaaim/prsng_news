@@ -12,7 +12,7 @@ class App
     public function __construct()
     {
         $url = ltrim(urldecode($_SERVER['REQUEST_URI']), '/');
-        
+        session_start();
         self::$app = Registry::getInstance();
         new ErrorHandler();
         $this->getParams();
