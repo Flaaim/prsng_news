@@ -1,2 +1,4 @@
 .idea
 AdminLTE-3.2.0
+config
+phinx.php
