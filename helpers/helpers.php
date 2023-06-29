@@ -14,8 +14,8 @@ function redirect($http = false)
     }else{
         $redirect = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : PATH;
     }
-    return header("Location: $redirect");
-    die();
+    header("Location: $redirect");
+    die;
 }
 
 function get($key, $type = 'i'){

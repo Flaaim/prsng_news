@@ -65,4 +65,16 @@ class ParceController extends AppController
         }
         die();
     }
+    public function deleteAction()
+    {
+        if($_SERVER['REQUEST_METHOD'] == 'GET'){
+            $id = get('id');
+            if($this->model->deleteNews($id)){
+                $answer = ['status' => 'success', 'message' => 'Запись успешно удалена!'];
+            }else{
+                $answer = ['status' => 'error', 'message' => 'Id не найден'];
+            }
+            exit(json_encode($answer));
+        }
+    }
 }

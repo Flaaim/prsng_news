@@ -44,5 +44,6 @@
 <script src="<?= PATH ?>/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?= PATH ?>/assets/dist/js/adminlte.js"></script>
+<script src="<?= PATH ?>/assets/js/main.js"></script>
 </body>
 </html>

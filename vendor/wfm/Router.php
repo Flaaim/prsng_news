@@ -21,77 +21,85 @@ class Router
     {
         return self::$route;
     }
-    public static function dispatch($url)
+    protected static function removeQueryString($url): string
     {
-        if(self::matchRoutes($url)){
-           $controller = "App\\Controllers\\".self::$route['admin_prefix'].self::$route['controller']."Controller";
-           if(class_exists($controller)){ 
-                $controllerObject = new $controller(self::$route);
-                $controllerObject->getModel();
-                $action = self::$route['action'].'Action';
-                if(method_exists($controllerObject, $action)){ 
-                    $controllerObject->$action();
-                    $controllerObject->getView();
-                } else {
-                    throw new \Exception("Method $method не найден");
-                }
-           } else {
-                throw new \Exception("Controller $controller не найден");
-           }
-        }else{
-            require_once WWW . "/errors/404.php";
-        }
-    }
-    public static function matchRoutes($url): bool
-    {
-        foreach(self::$routes as $pattern => $route){ 
-            if(preg_match("#{$pattern}#", $url, $matches)){
-                foreach($matches as $key => $value){
-                    if(is_string($key)){
-                        $route[$key] = $value;
-                    }
-                }
-                if(empty($route['action'])){
-                    $route['action'] = 'index';
-                }
-                if(!isset($route['admin_prefix'])){
-                    $route['admin_prefix'] = "";
-                } else {
-                    $route['admin_prefix'] = 'Admin\\';
-                } 
-                $route['controller'] = self::upperCamelCase($route['controller']);
-                $route['action'] = self::setcamelCase($route['action']);
-                self::$route = $route;
-                return true;
-            }
+        if($url){
+            $params = explode('&', $url, 2);
 
-        }
-        return false;
-    }
 
-    public static function upperCamelCase($str)
-    {
-        return str_replace('-', '', ucwords($str, '-'));
-    }
+            return rtrim($params[0], '/');
 
-    public static function setcamelCase($str)
-    {
-        return lcfirst(self::upperCamelCase($str));
-    }
-
-    public static function removeQueryString($url)
-    {
-        if(str_contains($url, '?')){
-            $array = explode('?', $url);
-            if(!empty($array[1])){
-                $params = explode('&', $array[1]);
-                return $params;
-            }
-            
         }
         return '';
-        // return $params;
     }
+    protected static function changeQuesting($url): string
+    {
+        return str_replace('?', '&', $url);
+    }
+    public static function dispatch($url)
+    {
+        $url = self::changeQuesting($url);
+        $url = self::removeQueryString($url);
 
+        if(self::matchRoute($url)){
+            $controller = "App\controllers\\".self::$route['admin_prefix'].self::$route['controller'].'Controller';
 
+            if(!empty(self::$route['lang'])){
+                App::$app->setProperty('lang', self::$route['lang']);
+            }
+            if(class_exists($controller)){
+                $controllerObject = new $controller(self::$route);
+                $model = $controllerObject->getModel();
+
+                $action = self::lowerCamelCase(self::$route['action'].'Action');
+                if(method_exists($controllerObject, $action)){
+                    $controllerObject->$action();
+                    $controllerObject->getView();
+                }
+            } else{
+                throw(new \Exception("Контроллер {$controller} не найден"));
+            }
+        }else{
+            throw(new \Exception("Страница не найдена"));
+        }
+    }
+    public static function matchRoute($url): bool
+    {
+        foreach(self::$routes as $pattern => $route){
+            if(preg_match("#{$pattern}#", $url, $matches)){
+                foreach($matches as $key => $v){
+
+                    if(is_string($key)){
+
+                        $route[$key] = $v;
+                    }
+                    if(empty($route['action'])){
+                        $route['action'] = 'index';
+                    }
+                }
+
+                if(!isset($route['admin_prefix'])){
+                    $route['admin_prefix'] = '';
+                }else{
+                    $route['admin_prefix'] .= '\\';
+                }
+
+                $route['controller'] = self::upperCamelCase($route['controller']);
+                $route['action'] = self::lowerCamelCase($route['action']);
+                self::$route = $route;
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+    public static function upperCamelCase($name): string
+    {
+        return str_replace('-', '', ucwords($name, '-'));
+    }
+    public static function lowerCamelCase($name): string
+    {
+        return lcfirst(self::upperCamelCase($name));
+    }
 }

@@ -1,7 +1,6 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <?= $this->getPart('Parts/flash_message'); ?>
             <div class="card card-primary card-outline">
                 <div class="card-body">
                     <form action="/parce/kodeks" method="POST">
@@ -23,6 +22,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
+                    <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <th>#</th>
@@ -43,7 +43,7 @@
                                     <td><?= $item['source']?></td>
                                     <td>
                                         <a href="/parce/<?= $item['id']; ?>"><i class="fas fa-edit"></i></a>
-                                        | <a href="#"><i class="fas fa-trash-alt"></i></a>
+                                        | <a href="/parce/delete" class="news-delete" data-id="<?= $item['id']; ?>"><i class="fas fa-trash-alt"></i></a>
                                     </td>
 
                                 </tr>
@@ -56,6 +56,7 @@
                         </tbody>
 
                     </table>
+                    </div>
                 </div>
             </div>
         </div>
